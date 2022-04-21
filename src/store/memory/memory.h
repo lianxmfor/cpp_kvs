@@ -3,25 +3,24 @@
 #include <memory>
 #include <string>
 #include <tuple>
-#include <vector>
 #include <unordered_map>
 
 #include "error.h"
 #include "store/store.h"
 
 using std::unordered_map;
-using std::vector;
 using std::string;
+using std::unique_ptr;
 
 class MemoryStore : public Store
 {
 private:
-    unordered_map<string, vector<char>>  kvs;
+    unordered_map<string, string>  kvs{};
 
 public:
-    virtual unique_ptr<error> set(vector<char> key, vector<char> value) override;
+    virtual unique_ptr<error> set(const string key, const string value) override;
 
-    virtual tuple<vector<char>, unique_ptr<error>> get(vector<char> key) override;
+    virtual tuple<string, unique_ptr<error>> get(const string key) override;
 
-    virtual unique_ptr<error> remove(vector<char> key) override;
+    virtual unique_ptr<error> remove(const string key) override;
 };

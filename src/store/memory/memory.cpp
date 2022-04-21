@@ -1,37 +1,31 @@
-#include <iterator>
-#include <memory>
-#include <string>
-#include <tuple>
+#include <iostream>
 #include <vector>
 
 #include "error.h"
 #include "memory.h"
 
 using std::vector;
+using std::string;
 
 
-unique_ptr<error> MemoryStore::set(vector<char> key, vector<char> value)
+unique_ptr<error> MemoryStore::set(const string key, const string value)
 {
-    string s_key{ key.begin(), key.end() };
-    kvs.insert({s_key, value});
+    kvs.insert({key, value});
     return nullptr;
 }
 
-tuple<vector<char>, unique_ptr<error>> MemoryStore::get(vector<char> key)
+tuple<string, unique_ptr<error>> MemoryStore::get(const string key)
 {
-    string s_key { key.begin(), key.end() }; 
 
-    auto value = kvs.find(s_key);
+    auto value = kvs.find(key);
     if ( value != kvs.end() ) {
         return std::make_tuple(value->second, nullptr);
     } 
-    return std::make_tuple(vector<char>{}, nullptr);
+    return std::make_tuple("", nullptr);
 }
 
-unique_ptr<error> MemoryStore::remove(vector<char> key)
+unique_ptr<error> MemoryStore::remove(const string key)
 {
-    string s_key { key.begin(), key.end() };
-    kvs.erase(s_key);
-
+    kvs.erase(key);
     return nullptr;
 }

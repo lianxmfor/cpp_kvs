@@ -1,10 +1,9 @@
 #include <iostream>
 #include <memory>
+#include <string>
 #include <tuple>
 #include <type_traits>
-#include <vector>
 
-#include "error.h"
 #include "store/store.h"
 #include "store/memory/memory.h"
 
@@ -12,24 +11,17 @@ using namespace std;
 
 int main()
 {
-    Store* s = new MemoryStore();
+    unique_ptr<Store> s(new MemoryStore);
 
-    s->set(vector<char>{'n'}, vector<char>{'l', 'i', 'a', 'n'});
+    s->set("name", "lianxm");
 
-    vector<char> value;
+    string value;
     unique_ptr<error> err;
 
-    std::tie(value, err) = s->get(vector<char>{'n'});
-    if (err != nullptr)
-    {
+    std::tie(value, err) = s->get("name");
+    if (err != nullptr) {
         cout << "get value failed: " << err->Error() << endl;
-    }
-    else
-    {
-        for (const auto& v : value)
-        {
-            cout << v;
-        }
-        cout << endl;
+    } else {
+        cout << value << endl;
     }
 }

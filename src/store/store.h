@@ -1,12 +1,12 @@
 #pragma once
 
+#include <string>
 #include <tuple>
-#include <vector>
 #include <memory>
 
 #include "error.h"
 
-using std::vector;
+using std::string;
 using std::tuple;
 using std::unique_ptr;
 
@@ -16,13 +16,13 @@ class Store
 public:
     // Sets the value of a vector<char> key to a vector<char>.
     // If the key already exists, the previous value will be overwritten.
-    virtual unique_ptr<error> set(vector<char> key, vector<char> value) = 0;
+    virtual unique_ptr<error> set(const string key, const string value) = 0;
 
     // Gets the vector<char> value of a given vector<char> key.
     //
     // Return empty vector if given key does not exist.
-    virtual tuple<vector<char>, unique_ptr<error>> get(vector<char> key) = 0;
+    virtual tuple<string, unique_ptr<error>> get(const string key) = 0;
 
     // Remove a given key.
-    virtual unique_ptr<error> remove(vector<char> key) = 0;
+    virtual unique_ptr<error> remove(const string key) = 0;
 };
