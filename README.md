@@ -1,6 +1,7 @@
 a simple kv server by cpp for learn cpp and lsm storage engine
 
 RoadMap:
-[-] memory kv store
-[-] lsm wal kv store
-
+- [x] memory kv store
+- [ ] unit tests
+- [ ] lsm kv store
+- [ ] network server
