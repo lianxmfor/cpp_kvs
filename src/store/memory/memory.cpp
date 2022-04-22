@@ -10,7 +10,7 @@ using std::string;
 
 unique_ptr<error> MemoryStore::set(const string key, const string value)
 {
-    kvs.insert({key, value});
+    kvs[key] = value;
     return nullptr;
 }
 
