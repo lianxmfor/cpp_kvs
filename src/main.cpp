@@ -3,8 +3,8 @@
 #include <string>
 #include <tuple>
 
-#include "store/store.h"
 #include "store/memory/memory.h"
+#include "store/store.h"
 
 using namespace std;
 

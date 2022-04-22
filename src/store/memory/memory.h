@@ -8,14 +8,13 @@
 #include "error.h"
 #include "store/store.h"
 
-using std::unordered_map;
 using std::string;
 using std::unique_ptr;
+using std::unordered_map;
 
-class MemoryStore : public Store
-{
+class MemoryStore : public Store {
 private:
-    unordered_map<string, string>  kvs{};
+    unordered_map<string, string> kvs{};
 
 public:
     virtual unique_ptr<error> set(const string key, const string value) override;

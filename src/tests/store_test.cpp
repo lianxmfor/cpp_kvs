@@ -5,12 +5,13 @@
 #include <tuple>
 
 #include "error.h"
-#include "store/store.h"
 #include "store/memory/memory.h"
+#include "store/store.h"
 
 using std::string;
 
-TEST_CASE("get tests" " [memory] ")
+TEST_CASE("get tests"
+          " [memory] ")
 {
     unique_ptr<Store> s(new MemoryStore);
 
@@ -29,14 +30,15 @@ TEST_CASE("get tests" " [memory] ")
     REQUIRE(err == nullptr);
 }
 
-TEST_CASE("set tests" " [memory] ")
+TEST_CASE("set tests"
+          " [memory] ")
 {
     unique_ptr<Store> s(new MemoryStore);
 
     auto err = s->set("k1", "v1");
     REQUIRE(err == nullptr);
 
-    err = s->set("k1","v2");
+    err = s->set("k1", "v2");
     REQUIRE(err == nullptr);
 
     string v;
@@ -46,7 +48,8 @@ TEST_CASE("set tests" " [memory] ")
     REQUIRE(err == nullptr);
 }
 
-TEST_CASE("remove tests" " [memory] ")
+TEST_CASE("remove tests"
+          " [memory] ")
 {
     unique_ptr<Store> s(new MemoryStore);
 
@@ -54,7 +57,7 @@ TEST_CASE("remove tests" " [memory] ")
     REQUIRE(err == nullptr);
 
     REQUIRE(s->set("k1", "v1") == nullptr);
-    
+
     string v;
     std::tie(v, err) = s->get("k1");
     REQUIRE(v == "v1");

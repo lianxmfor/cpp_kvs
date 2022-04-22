@@ -1,8 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <tuple>
-#include <memory>
 
 #include "error.h"
 
@@ -11,8 +11,7 @@ using std::tuple;
 using std::unique_ptr;
 
 // Store is an interface for description store actions.
-class Store
-{
+class Store {
 public:
     // Sets the value of a vector<char> key to a vector<char>.
     // If the key already exists, the previous value will be overwritten.
@@ -27,5 +26,5 @@ public:
     virtual unique_ptr<error> remove(const string key) = 0;
 
 public:
-    virtual ~Store() {};
+    virtual ~Store(){};
 };

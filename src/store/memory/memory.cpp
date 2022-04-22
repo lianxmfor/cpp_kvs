@@ -4,9 +4,8 @@
 #include "error.h"
 #include "memory.h"
 
-using std::vector;
 using std::string;
-
+using std::vector;
 
 unique_ptr<error> MemoryStore::set(const string key, const string value)
 {
@@ -18,9 +17,9 @@ tuple<string, unique_ptr<error>> MemoryStore::get(const string key)
 {
 
     auto value = kvs.find(key);
-    if ( value != kvs.end() ) {
+    if (value != kvs.end()) {
         return std::make_tuple(value->second, nullptr);
-    } 
+    }
     return std::make_tuple("", nullptr);
 }
 

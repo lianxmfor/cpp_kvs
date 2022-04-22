@@ -2,11 +2,10 @@
 
 #include <string>
 
-class error
-{
+class error {
 public:
     virtual std::string Error() = 0;
 
 public:
-    virtual ~error() {};
+    virtual ~error(){};
 };
