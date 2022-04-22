@@ -2,7 +2,6 @@
 #include <memory>
 #include <string>
 #include <tuple>
-#include <type_traits>
 
 #include "store/store.h"
 #include "store/memory/memory.h"
