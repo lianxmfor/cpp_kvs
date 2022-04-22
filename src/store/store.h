@@ -25,4 +25,7 @@ public:
 
     // Remove a given key.
     virtual unique_ptr<error> remove(const string key) = 0;
+
+public:
+    virtual ~Store() {};
 };
