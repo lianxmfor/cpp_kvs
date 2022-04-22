@@ -4,16 +4,13 @@
 #include "error.h"
 #include "memory.h"
 
-using std::string;
-using std::vector;
-
-unique_ptr<error> MemoryStore::set(const string key, const string value)
+std::unique_ptr<error> MemoryStore::set(const std::string& key, const std::string& value)
 {
     kvs[key] = value;
     return nullptr;
 }
 
-tuple<string, unique_ptr<error>> MemoryStore::get(const string key)
+std::tuple<std::string, std::unique_ptr<error>> MemoryStore::get(const std::string& key)
 {
 
     auto value = kvs.find(key);
@@ -23,7 +20,7 @@ tuple<string, unique_ptr<error>> MemoryStore::get(const string key)
     return std::make_tuple("", nullptr);
 }
 
-unique_ptr<error> MemoryStore::remove(const string key)
+std::unique_ptr<error> MemoryStore::remove(const std::string& key)
 {
     kvs.erase(key);
     return nullptr;

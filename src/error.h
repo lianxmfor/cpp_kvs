@@ -7,5 +7,5 @@ public:
     virtual std::string Error() = 0;
 
 public:
-    virtual ~error(){};
+    virtual ~error() = default;
 };

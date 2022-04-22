@@ -8,18 +8,14 @@
 #include "error.h"
 #include "store/store.h"
 
-using std::string;
-using std::unique_ptr;
-using std::unordered_map;
-
 class MemoryStore : public Store {
 private:
-    unordered_map<string, string> kvs{};
+    std::unordered_map<std::string, std::string> kvs{};
 
 public:
-    virtual unique_ptr<error> set(const string key, const string value) override;
+    std::unique_ptr<error> set(const std::string& key, const std::string& value) override;
 
-    virtual tuple<string, unique_ptr<error>> get(const string key) override;
+    std::tuple<std::string, std::unique_ptr<error>> get(const std::string& key) override;
 
-    virtual unique_ptr<error> remove(const string key) override;
+    std::unique_ptr<error> remove(const std::string& key) override;
 };

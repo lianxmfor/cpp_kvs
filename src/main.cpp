@@ -6,21 +6,19 @@
 #include "store/memory/memory.h"
 #include "store/store.h"
 
-using namespace std;
-
 int main()
 {
-    unique_ptr<Store> s(new MemoryStore);
+    std::unique_ptr<Store> s(new MemoryStore);
 
     s->set("name", "lianxm");
 
-    string value;
-    unique_ptr<error> err;
+    std::string value;
+    std::unique_ptr<error> err;
 
     std::tie(value, err) = s->get("name");
     if (err != nullptr) {
-        cout << "get value failed: " << err->Error() << endl;
+        std::cout << "get value failed: " << err->Error() << std::endl;
     } else {
-        cout << value << endl;
+        std::cout << value << std::endl;
     }
 }
