@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <memory>
 #include <string>
@@ -7,7 +8,7 @@
 
 #include "store/lsm/memtable.h"
 
-MemTableEntry::MemTableEntry(string key,
+MemTableEntry::MemTableEntry(const string& key,
     string* value,
     bool deleted,
     uint64_t timestamp)
@@ -15,8 +16,11 @@ MemTableEntry::MemTableEntry(string key,
     this->key = key;
     this->deleted = deleted;
     this->timestamp = timestamp;
+
     if (value != nullptr) {
-        this->value = new string{ *value };
+        this->value = new string( *value );
+    } else {
+        this->value = nullptr;
     }
 }
 
@@ -24,6 +28,7 @@ MemTableEntry::~MemTableEntry()
 {
     if (this->value != nullptr) {
         delete this->value;
+        this->value = nullptr;
     }
 }
 

@@ -21,13 +21,13 @@ TEST_CASE("test get_index")
         bool want_if_exist;
     };
 
-    vector<MemTableEntry> entries({
-        MemTableEntry{ "1", nullptr, false, 0 },
-        MemTableEntry{ "2", nullptr, false, 0 },
-        MemTableEntry{ "3", nullptr, false, 0 },
-        MemTableEntry{ "5", nullptr, false, 0 },
-        MemTableEntry{ "7", nullptr, false, 0 },
-    });
+    vector<MemTableEntry> entries = {
+        { "1", nullptr, false, 0 },
+        { "2", nullptr, false, 0 },
+        { "3", nullptr, false, 0 },
+        { "5", nullptr, false, 0 },
+        { "7", nullptr, false, 0 },
+    };
 
     vector<TestCase> cases = {
         {
@@ -42,7 +42,7 @@ TEST_CASE("test get_index")
             .entries = entries,
             .key = "1",
             .want_index = 0,
-            .want_if_exist = false,
+            .want_if_exist = true,
         },
         {
             .msg = "case3",

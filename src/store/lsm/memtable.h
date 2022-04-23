@@ -17,7 +17,7 @@ using std::vector;
 
 class MemTableEntry {
 public:
-    MemTableEntry(string key,
+    MemTableEntry(const string& key,
         string* value,
         bool deleted,
         uint64_t timestamp);
