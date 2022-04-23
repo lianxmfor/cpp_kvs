@@ -8,6 +8,8 @@ add_library(
     src/store/store.h
     src/store/memory/memory.h
     src/store/memory/memory.cpp
+    src/store/lsm/memtable.h
+    src/store/lsm/memtable.cpp
 )
 target_include_directories(store_lib PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
