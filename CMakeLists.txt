@@ -16,12 +16,17 @@ target_include_directories(store_lib PRIVATE "${PROJECT_SOURCE_DIR}/src")
 # main
 add_executable(${PROJECT_NAME} src/main.cpp)
 target_link_libraries(${PROJECT_NAME} store_lib)
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 # testing
 add_executable(store_test src/tests/store_test.cpp)
 target_link_libraries(store_test store_lib)
 target_include_directories(store_test PRIVATE "${PROJECT_SOURCE_DIR}/src")
+
+# test src/store/lsm/memtable
+add_executable(lsm_memtable_test src/store/lsm/memtable_test.cpp)
+target_link_libraries(lsm_memtable_test store_lib)
+target_include_directories(lsm_memtable_test PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 enable_testing()
 
@@ -30,3 +35,7 @@ add_test(
     COMMAND $<TARGET_FILE:store_test> --success
 )
 
+add_test(
+    NAME lsm_memtable_test
+    COMMAND $<TARGET_FILE:lsm_memtable_test> --success
+)

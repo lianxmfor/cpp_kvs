@@ -2,6 +2,7 @@
 
 // MemTable entry
 #include <cstdint>
+#include <initializer_list>
 #include <iterator>
 #include <memory>
 #include <string>
@@ -9,10 +10,10 @@
 #include <vector>
 
 using std::string;
+using std::tuple;
 using std::uint64_t;
 using std::unique_ptr;
 using std::vector;
-using std::tuple;
 
 class MemTableEntry {
 public:
@@ -20,6 +21,7 @@ public:
         string* value,
         bool deleted,
         uint64_t timestamp);
+
     ~MemTableEntry();
 
 public:
@@ -51,7 +53,7 @@ public:
 
 public:
     // Get the MemTableEntry value of a given string key.
-    // If key not exist, returned `[nullptr]` 
+    // If key not exist, returned `[nullptr]`
     unique_ptr<MemTableEntry> get(const string& key);
 
     // Set the value of a string key to a string.

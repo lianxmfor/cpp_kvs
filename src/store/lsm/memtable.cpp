@@ -58,7 +58,6 @@ auto MemTable::get_index(const string& key) -> tuple<decltype(entries)::iterator
     return std::make_tuple(iter, iter != entries.end() && iter->key == key);
 }
 
-
 unique_ptr<MemTableEntry> MemTable::get(const string& key)
 {
     decltype(entries)::iterator iter;
