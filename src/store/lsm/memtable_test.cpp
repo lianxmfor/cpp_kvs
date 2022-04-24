@@ -1,7 +1,8 @@
+#include <memory>
 #define CATCH_CONFIG_MAIN
 #include "tests/catch.hpp"
 
-#include <iterator>
+#include <iostream>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -87,4 +88,149 @@ TEST_CASE("test get_index")
             REQUIRE(c.want_if_exist == got_if_exist);
         }
     }
+}
+
+TEST_CASE("MemTable put start")
+{
+    unique_ptr<MemTable> table(new MemTable());
+
+    table->set("Lime", "Lime Smoothie", 0); // 17 + 16 + 1
+    table->set("Orange", "Orange Smoothie", 10); // 21 + 16 + 1
+    table->set("Apple", "Apple Smoothie", 20); // 19 + 16 + 1
+
+    REQUIRE(table->entries[0].key == "Apple");
+    REQUIRE(*table->entries[0].value == "Apple Smoothie");
+    REQUIRE(table->entries[0].timestamp == 20);
+    REQUIRE(table->entries[0].deleted == false);
+
+    REQUIRE(table->entries[1].key == "Lime");
+    REQUIRE(*table->entries[1].value == "Lime Smoothie");
+    REQUIRE(table->entries[1].timestamp == 0);
+    REQUIRE(table->entries[1].deleted == false);
+
+    REQUIRE(table->entries[2].key == "Orange");
+    REQUIRE(*table->entries[2].value == "Orange Smoothie");
+    REQUIRE(table->entries[2].timestamp == 10);
+    REQUIRE(table->entries[2].deleted == false);
+
+    REQUIRE(table->len() == 108);
+}
+
+TEST_CASE("MemTable put middle")
+{
+    unique_ptr<MemTable> table(new MemTable());
+
+    table->set("Apple", "Apple Smoothie", 0); // 19 + 16 + 1
+    table->set("Orange", "Orange Smoothie", 10); // 21 + 16 + 1
+    table->set("Lime", "Lime Smoothie", 20); // 17 + 16 + 1
+
+    REQUIRE(table->entries[0].key == "Apple");
+    REQUIRE(*table->entries[0].value == "Apple Smoothie");
+    REQUIRE(table->entries[0].timestamp == 0);
+    REQUIRE(table->entries[0].deleted == false);
+
+    REQUIRE(table->entries[1].key == "Lime");
+    REQUIRE(*table->entries[1].value == "Lime Smoothie");
+    REQUIRE(table->entries[1].timestamp == 20);
+    REQUIRE(table->entries[1].deleted == false);
+
+    REQUIRE(table->entries[2].key == "Orange");
+    REQUIRE(*table->entries[2].value == "Orange Smoothie");
+    REQUIRE(table->entries[2].timestamp == 10);
+    REQUIRE(table->entries[2].deleted == false);
+
+    REQUIRE(table->len() == 108);
+}
+
+TEST_CASE("MemTable put end")
+{
+    unique_ptr<MemTable> table(new MemTable());
+
+    table->set("Apple", "Apple Smoothie", 0); // 19 + 16 + 1
+    table->set("Lime", "Lime Smoothie", 10); // 17 + 16 + 1
+    table->set("Orange", "Orange Smoothie", 20); // 21 + 16 + 1
+
+    REQUIRE(table->entries[0].key == "Apple");
+    REQUIRE(*table->entries[0].value == "Apple Smoothie");
+    REQUIRE(table->entries[0].timestamp == 0);
+    REQUIRE(table->entries[0].deleted == false);
+
+    REQUIRE(table->entries[1].key == "Lime");
+    REQUIRE(*table->entries[1].value == "Lime Smoothie");
+    REQUIRE(table->entries[1].timestamp == 10);
+    REQUIRE(table->entries[1].deleted == false);
+
+    REQUIRE(table->entries[2].key == "Orange");
+    REQUIRE(*table->entries[2].value == "Orange Smoothie");
+    REQUIRE(table->entries[2].timestamp == 20);
+    REQUIRE(table->entries[2].deleted == false);
+
+    REQUIRE(table->len() == 108);
+}
+
+TEST_CASE("MemTable get exist")
+{
+    unique_ptr<MemTable> table(new MemTable);
+
+    table->set("Apple", "Apple Smoothie", 0); // 19 + 16 + 1
+    table->set("Lime", "Lime Smoothie", 10); // 17 + 16 + 1
+    table->set("Orange", "Orange Smoothie", 20); // 21 + 16 + 1
+
+    auto entry = table->get("Lime");
+    REQUIRE(entry != nullptr);
+    REQUIRE(entry->key == "Lime");
+    REQUIRE(entry->value != nullptr);
+    REQUIRE(*entry->value == "Lime Smoothie");
+    REQUIRE(entry->deleted == false);
+    REQUIRE(entry->timestamp == 10);
+
+    table->remove("Lime", 30);
+    entry = table->get("Lime");
+    REQUIRE(entry != nullptr);
+    REQUIRE(entry->key == "Lime");
+    REQUIRE(entry->value == nullptr);
+    REQUIRE(entry->deleted == true);
+    REQUIRE(entry->timestamp == 30);
+}
+
+TEST_CASE("MemTable get not exist")
+{
+    unique_ptr<MemTable> table(new MemTable);
+
+    auto entry = table->get("Lime");
+    REQUIRE(entry == nullptr);
+}
+
+TEST_CASE("MemTable remove")
+{
+    unique_ptr<MemTable> table(new MemTable);
+
+    table->set("Orange", "Orange Smoothie", 0);
+    table->remove("Orange", 10);
+
+    auto entry = table->get("Orange");
+    REQUIRE(entry != nullptr);
+    REQUIRE(entry->key == "Orange");
+    REQUIRE(entry->value == nullptr);
+    REQUIRE(entry->deleted == true);
+    REQUIRE(entry->timestamp == 10);
+}
+
+TEST_CASE("MemTable remove empty")
+{
+    unique_ptr<MemTable> table(new MemTable);
+
+    table->remove("Orange", 10);
+
+    auto entry = table->get("Orange");
+    REQUIRE(entry != nullptr);
+    REQUIRE(entry->key == "Orange");
+    REQUIRE(entry->value == nullptr);
+    REQUIRE(entry->deleted == true);
+    REQUIRE(entry->timestamp == 10);
+
+    REQUIRE(table->entries[0].key == "Orange");
+    REQUIRE(table->entries[0].value == nullptr);
+    REQUIRE(table->entries[0].deleted == true);
+    REQUIRE(table->entries[0].timestamp == 10);
 }
