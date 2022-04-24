@@ -2,7 +2,6 @@
 
 // MemTable entry
 #include <cstdint>
-#include <initializer_list>
 #include <iterator>
 #include <memory>
 #include <string>
@@ -20,15 +19,20 @@ public:
     MemTableEntry(const string& key,
         string* value,
         bool deleted,
-        uint64_t timestamp);
+        uint64_t timestamp) noexcept;
+
+    MemTableEntry(const MemTableEntry& other) noexcept; // copy constructor
+    MemTableEntry(MemTableEntry&& other) noexcept; // move constructor
+    MemTableEntry& operator=(const MemTableEntry& other) noexcept; // copy assignment
+    MemTableEntry& operator=(MemTableEntry&& other) noexcept; // move assignment
 
     ~MemTableEntry();
 
 public:
     string key;
-    string* value;
-    bool deleted;
-    uint64_t timestamp;
+    string* value{};
+    bool deleted{};
+    uint64_t timestamp{};
 };
 
 // MemTable holds a sorted vector of the latest written records.
@@ -45,11 +49,11 @@ public:
     // If the record is found `[iter, true]` is returned, iter is the index of record.
     // If the record is not found `[iter, false]` is returned. iter is the index to
     // insert at the record at.
-    auto get_index(const string& key) -> std::tuple<decltype(entries)::iterator, bool>;
+    auto get_index(const string& key) -> tuple<vector<MemTableEntry>::iterator, bool>;
 
-    unsigned int len();
+    unsigned int len() const;
 
-    bool is_empty();
+    bool is_empty() const;
 
 public:
     // Get the MemTableEntry value of a given string key.
