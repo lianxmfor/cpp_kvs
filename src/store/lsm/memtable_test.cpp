@@ -1,8 +1,7 @@
-#include <memory>
 #define CATCH_CONFIG_MAIN
 #include "tests/catch.hpp"
 
-#include <iostream>
+#include <memory>
 #include <string>
 #include <tuple>
 #include <vector>
