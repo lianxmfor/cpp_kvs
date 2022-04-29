@@ -111,7 +111,7 @@ auto MemTable::get_index(const string& key) -> tuple<vector<MemTableEntry>::iter
     return std::make_tuple(iter, iter != entries.end() && iter->key == key);
 }
 
-unique_ptr<MemTableEntry> MemTable::get(const string& key)
+auto MemTable::get(const string& key) -> unique_ptr<MemTableEntry>
 {
     decltype(entries)::iterator iter;
     bool exist;

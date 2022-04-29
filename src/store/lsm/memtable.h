@@ -21,18 +21,18 @@ public:
         bool deleted,
         uint64_t timestamp) noexcept;
 
-    MemTableEntry(const MemTableEntry& other) noexcept; // copy constructor
-    MemTableEntry(MemTableEntry&& other) noexcept; // move constructor
-    MemTableEntry& operator=(const MemTableEntry& other) noexcept; // copy assignment
-    MemTableEntry& operator=(MemTableEntry&& other) noexcept; // move assignment
+    MemTableEntry(const MemTableEntry& other) noexcept;
+    MemTableEntry(MemTableEntry&& other) noexcept;
+    MemTableEntry& operator=(const MemTableEntry& other) noexcept;
+    MemTableEntry& operator=(MemTableEntry&& other) noexcept;
 
     ~MemTableEntry();
 
 public:
     string key;
-    string* value{};
-    bool deleted{};
-    uint64_t timestamp{};
+    string* value {};
+    bool deleted {};
+    uint64_t timestamp {};
 };
 
 // MemTable holds a sorted vector of the latest written records.
@@ -51,14 +51,14 @@ public:
     // insert at the record at.
     auto get_index(const string& key) -> tuple<vector<MemTableEntry>::iterator, bool>;
 
-    unsigned int len() const;
+    auto len() const -> unsigned int;
 
-    bool is_empty() const;
+    auto is_empty() const -> bool;
 
 public:
     // Get the MemTableEntry value of a given string key.
     // If key not exist, returned `[nullptr]`
-    unique_ptr<MemTableEntry> get(const string& key);
+    auto get(const string& key) -> unique_ptr<MemTableEntry>;
 
     // Set the value of a string key to a string.
     // If the key already exists, the previous value will be overwritten.

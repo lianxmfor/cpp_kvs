@@ -1,6 +1,5 @@
 #include <iostream>
 #include <memory>
-#include <string>
 #include <tuple>
 
 #include "store/memory/memory.h"
