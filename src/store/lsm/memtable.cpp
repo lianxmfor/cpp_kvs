@@ -132,10 +132,7 @@ void MemTable::set(const string& key, const string& value, uint64_t timestamp)
 {
     MemTableEntry entry = { key, (string*)&value, false, timestamp };
 
-    vector<MemTableEntry>::iterator iter;
-    bool exist;
-
-    std::tie(iter, exist) = this->get_index(key);
+    auto [iter, exist] = this->get_index(key);
     if (exist) {
         if (iter->value != nullptr) {
             usize += value.size();
@@ -156,10 +153,7 @@ void MemTable::remove(const string& key, uint64_t timestamp)
 {
     MemTableEntry entry = { key, nullptr, true, timestamp };
 
-    vector<MemTableEntry>::iterator iter;
-    bool exist;
-
-    std::tie(iter, exist) = this->get_index(key);
+    auto [iter, exist] = this->get_index(key);
     if (exist) {
         if (iter->value != nullptr) {
             usize -= iter->value->size();

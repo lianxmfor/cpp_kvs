@@ -10,7 +10,7 @@
 
 class MemoryStore : public Store {
 private:
-    std::unordered_map<std::string, std::string> kvs {};
+    std::unordered_map<std::string, std::string> kvs{};
 
 public:
     std::unique_ptr<error> set(const std::string& key, const std::string& value) override;

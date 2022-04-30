@@ -78,10 +78,7 @@ TEST_CASE("test get_index")
         SECTION(c.msg)
         {
             table->entries = entries;
-            vector<MemTableEntry>::iterator iter;
-            bool got_if_exist;
-
-            std::tie(iter, got_if_exist) = table->get_index(c.key);
+            auto [iter, got_if_exist] = table->get_index(c.key);
 
             REQUIRE(c.want_index == std::distance(table->entries.begin(), iter));
             REQUIRE(c.want_if_exist == got_if_exist);
