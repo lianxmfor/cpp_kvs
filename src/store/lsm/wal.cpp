@@ -28,10 +28,17 @@ WAL::WAL(const std::filesystem::path& filepath, std::fstream&& file)
     this->file = std::move(file);
 }
 
-WAL::WAL(const WAL&& other)
+WAL::WAL(WAL&& other)
 {
     this->filepath = other.filepath;
-    this->file = std::move(file);
+    this->file = std::move(other.file);
+}
+
+WAL& WAL::operator=(WAL&& other)
+{
+    this->filepath = other.filepath;
+    this->file = std::move(other.file);
+    return *this;
 }
 
 WAL::~WAL()

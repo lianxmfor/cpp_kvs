@@ -30,9 +30,9 @@ public:
 
 public:
     string key;
-    string* value{};
-    bool deleted{};
-    uint64_t timestamp{};
+    string* value {};
+    bool deleted {};
+    uint64_t timestamp {};
 };
 
 // MemTable holds a sorted vector of the latest written records.

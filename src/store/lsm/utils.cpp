@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 
@@ -5,14 +6,14 @@
 
 auto file_with_ext(const std::filesystem::path& dir, const string& ext) -> vector<string>
 {
-    vector<string> files{};
+    vector<string> files {};
     for (auto& p : std::filesystem::directory_iterator(dir)) {
         if (p.path().extension() == ext) {
             files.push_back(p.path());
         }
     }
 
-    return std::move(files);
+    return files;
 }
 
 auto get_random_string(const int len, const std::string& extension) -> string

@@ -30,16 +30,16 @@ bool WALEntryScan::has_next()
 
 WALEntry WALEntryScan::next()
 {
-    WALEntry entry{};
+    WALEntry entry {};
 
-    size_t key_size{};
+    size_t key_size {};
     file.read(reinterpret_cast<char*>(&key_size), 4);
     entry.key.resize(key_size);
 
     file.read(reinterpret_cast<char*>(&entry.deleted), 1);
 
     if (!entry.deleted) {
-        size_t value_size{};
+        size_t value_size {};
         file.read(reinterpret_cast<char*>(&value_size), 4);
         entry.value = new string;
         entry.value->resize(value_size);
@@ -52,5 +52,5 @@ WALEntry WALEntryScan::next()
 
     file.read(reinterpret_cast<char*>(&entry.timestamp), 8);
 
-    return std::move(entry);
+    return entry;
 }

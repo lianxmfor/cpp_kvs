@@ -27,11 +27,15 @@ private:
     fstream file;
 
 public:
+    WAL() = default;
+
     explicit WAL(const std::filesystem::path& dir);
 
     WAL(const std::filesystem::path& filepath, std::fstream&& file);
 
-    WAL(const WAL&& other);
+    WAL(WAL&& other);
+
+    WAL& operator=(WAL&& other);
 
     ~WAL();
 

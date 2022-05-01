@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_lib.dir/src/store/memory/memory.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/memory/memory.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/memory/memory.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_lib.dir/src/store/lsm/database.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/database.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/database.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_lib.dir/src/store/lsm/memtable.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/memtable.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/memtable.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_lib.dir/src/store/lsm/wal.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_lib.dir/src/store/lsm/wal_iterator.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal_iterator.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal_iterator.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_lib.dir/src/store/lsm/utils.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/utils.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/utils.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/cpp_kvs.dir/src/main.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/main.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/main.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/store_test.dir/src/tests/store_test.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/tests/store_test.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/tests/store_test.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/lsm_memtable_test.dir/src/store/lsm/memtable_test.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/memtable_test.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/memtable_test.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/lsm_wal_iterator_test.dir/src/store/lsm/wal_iterator_test.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal_iterator_test.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal_iterator_test.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/lsm_wal_test.dir/src/store/lsm/wal_test.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal_test.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/wal_test.cpp"
+},
+{
+  "directory": "/Users/lianxm/github.com/cpp_kvs/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/lianxm/github.com/cpp_kvs/src  -std=c++17 -Wall -O2 -Werror -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk -o CMakeFiles/lsm_database_test.dir/src/store/lsm/database_test.cpp.o -c /Users/lianxm/github.com/cpp_kvs/src/store/lsm/database_test.cpp",
+  "file": "/Users/lianxm/github.com/cpp_kvs/src/store/lsm/database_test.cpp"
+}
+]
