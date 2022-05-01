@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <tuple>
 
@@ -15,7 +16,7 @@ public:
 
     // Gets the vector<char> value of a given vector<char> key.
     // Return empty vector if given key does not exist.
-    virtual std::tuple<std::string, std::unique_ptr<error>> get(const std::string& key) = 0;
+    virtual std::tuple<std::optional<std::string>, std::unique_ptr<error>> get(const std::string& key) = 0;
 
     // Remove a given key.
     virtual std::unique_ptr<error> remove(const std::string& key) = 0;

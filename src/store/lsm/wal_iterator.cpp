@@ -41,11 +41,14 @@ WALEntry WALEntryScan::next()
     if (!entry.deleted) {
         size_t value_size {};
         file.read(reinterpret_cast<char*>(&value_size), 4);
-        entry.value = new string;
         entry.value->resize(value_size);
 
         file.read(entry.key.data(), key_size);
-        file.read(entry.value->data(), value_size);
+
+        std::string value;
+        value.resize(value_size);
+        file.read(value.data(), value_size);
+        entry.value = std::move(value);
     } else {
         file.read(entry.key.data(), key_size);
     }

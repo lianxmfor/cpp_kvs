@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <tuple>
 #include <unordered_map>
@@ -15,7 +16,7 @@ private:
 public:
     std::unique_ptr<error> set(const std::string& key, const std::string& value) override;
 
-    std::tuple<std::string, std::unique_ptr<error>> get(const std::string& key) override;
+    std::tuple<std::optional<std::string>, std::unique_ptr<error>> get(const std::string& key) override;
 
     std::unique_ptr<error> remove(const std::string& key) override;
 };

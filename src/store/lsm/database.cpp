@@ -2,16 +2,15 @@
 #include <cstdint>
 #include <filesystem>
 #include <memory>
-#include <set>
+#include <optional>
 #include <string>
 #include <tuple>
-
-#include <iostream>
 
 #include "error.h"
 #include "store/lsm/database.h"
 #include "store/lsm/memtable.h"
 
+using std::nullopt;
 using std::string;
 using std::tuple;
 using std::uint64_t;
@@ -33,12 +32,12 @@ fs::path Database::get_dir() const
     return dir;
 }
 
-auto Database::get(const std::string& key) -> std::tuple<std::string, std::unique_ptr<error>>
+auto Database::get(const string& key) -> tuple<std::optional<std::string>, unique_ptr<error>>
 {
     auto entry = memtable.get(key);
 
-    if (entry == nullptr || entry->value == nullptr) {
-        return std::make_tuple("", nullptr);
+    if (entry == nullptr || entry->value == std::nullopt) {
+        return std::make_tuple(nullopt, nullptr);
     }
 
     return std::make_tuple(*entry->value, nullptr);

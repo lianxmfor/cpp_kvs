@@ -2,6 +2,7 @@
 #include "tests/catch.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -22,11 +23,11 @@ TEST_CASE("test get_index")
     };
 
     vector<MemTableEntry> entries = {
-        { "1", nullptr, false, 0 },
-        { "2", nullptr, false, 0 },
-        { "3", nullptr, false, 0 },
-        { "5", nullptr, false, 0 },
-        { "7", nullptr, false, 0 },
+        { "1", std::nullopt, false, 0 },
+        { "2", std::nullopt, false, 0 },
+        { "3", std::nullopt, false, 0 },
+        { "5", std::nullopt, false, 0 },
+        { "7", std::nullopt, false, 0 },
     };
 
     vector<TestCase> cases = {
@@ -95,17 +96,17 @@ TEST_CASE("MemTable put start")
     table->set("Apple", "Apple Smoothie", 20); // 19 + 16 + 1
 
     REQUIRE(table->entries[0].key == "Apple");
-    REQUIRE(*table->entries[0].value == "Apple Smoothie");
+    REQUIRE(table->entries[0].value == "Apple Smoothie");
     REQUIRE(table->entries[0].timestamp == 20);
     REQUIRE(table->entries[0].deleted == false);
 
     REQUIRE(table->entries[1].key == "Lime");
-    REQUIRE(*table->entries[1].value == "Lime Smoothie");
+    REQUIRE(table->entries[1].value == "Lime Smoothie");
     REQUIRE(table->entries[1].timestamp == 0);
     REQUIRE(table->entries[1].deleted == false);
 
     REQUIRE(table->entries[2].key == "Orange");
-    REQUIRE(*table->entries[2].value == "Orange Smoothie");
+    REQUIRE(table->entries[2].value == "Orange Smoothie");
     REQUIRE(table->entries[2].timestamp == 10);
     REQUIRE(table->entries[2].deleted == false);
 
@@ -121,17 +122,17 @@ TEST_CASE("MemTable put middle")
     table->set("Lime", "Lime Smoothie", 20); // 17 + 16 + 1
 
     REQUIRE(table->entries[0].key == "Apple");
-    REQUIRE(*table->entries[0].value == "Apple Smoothie");
+    REQUIRE(table->entries[0].value == "Apple Smoothie");
     REQUIRE(table->entries[0].timestamp == 0);
     REQUIRE(table->entries[0].deleted == false);
 
     REQUIRE(table->entries[1].key == "Lime");
-    REQUIRE(*table->entries[1].value == "Lime Smoothie");
+    REQUIRE(table->entries[1].value == "Lime Smoothie");
     REQUIRE(table->entries[1].timestamp == 20);
     REQUIRE(table->entries[1].deleted == false);
 
     REQUIRE(table->entries[2].key == "Orange");
-    REQUIRE(*table->entries[2].value == "Orange Smoothie");
+    REQUIRE(table->entries[2].value == "Orange Smoothie");
     REQUIRE(table->entries[2].timestamp == 10);
     REQUIRE(table->entries[2].deleted == false);
 
@@ -147,17 +148,17 @@ TEST_CASE("MemTable put end")
     table->set("Orange", "Orange Smoothie", 20); // 21 + 16 + 1
 
     REQUIRE(table->entries[0].key == "Apple");
-    REQUIRE(*table->entries[0].value == "Apple Smoothie");
+    REQUIRE(table->entries[0].value == "Apple Smoothie");
     REQUIRE(table->entries[0].timestamp == 0);
     REQUIRE(table->entries[0].deleted == false);
 
     REQUIRE(table->entries[1].key == "Lime");
-    REQUIRE(*table->entries[1].value == "Lime Smoothie");
+    REQUIRE(table->entries[1].value == "Lime Smoothie");
     REQUIRE(table->entries[1].timestamp == 10);
     REQUIRE(table->entries[1].deleted == false);
 
     REQUIRE(table->entries[2].key == "Orange");
-    REQUIRE(*table->entries[2].value == "Orange Smoothie");
+    REQUIRE(table->entries[2].value == "Orange Smoothie");
     REQUIRE(table->entries[2].timestamp == 20);
     REQUIRE(table->entries[2].deleted == false);
 
@@ -175,8 +176,7 @@ TEST_CASE("MemTable get exist")
     auto entry = table->get("Lime");
     REQUIRE(entry != nullptr);
     REQUIRE(entry->key == "Lime");
-    REQUIRE(entry->value != nullptr);
-    REQUIRE(*entry->value == "Lime Smoothie");
+    REQUIRE(entry->value == "Lime Smoothie");
     REQUIRE(entry->deleted == false);
     REQUIRE(entry->timestamp == 10);
 
@@ -184,7 +184,7 @@ TEST_CASE("MemTable get exist")
     entry = table->get("Lime");
     REQUIRE(entry != nullptr);
     REQUIRE(entry->key == "Lime");
-    REQUIRE(entry->value == nullptr);
+    REQUIRE(entry->value == std::nullopt);
     REQUIRE(entry->deleted == true);
     REQUIRE(entry->timestamp == 30);
 }
@@ -207,7 +207,7 @@ TEST_CASE("MemTable remove")
     auto entry = table->get("Orange");
     REQUIRE(entry != nullptr);
     REQUIRE(entry->key == "Orange");
-    REQUIRE(entry->value == nullptr);
+    REQUIRE(entry->value == std::nullopt);
     REQUIRE(entry->deleted == true);
     REQUIRE(entry->timestamp == 10);
 }
@@ -221,12 +221,12 @@ TEST_CASE("MemTable remove empty")
     auto entry = table->get("Orange");
     REQUIRE(entry != nullptr);
     REQUIRE(entry->key == "Orange");
-    REQUIRE(entry->value == nullptr);
+    REQUIRE(entry->value == std::nullopt);
     REQUIRE(entry->deleted == true);
     REQUIRE(entry->timestamp == 10);
 
     REQUIRE(table->entries[0].key == "Orange");
-    REQUIRE(table->entries[0].value == nullptr);
+    REQUIRE(table->entries[0].value == std::nullopt);
     REQUIRE(table->entries[0].deleted == true);
     REQUIRE(table->entries[0].timestamp == 10);
 }

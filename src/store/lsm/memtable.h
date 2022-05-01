@@ -4,10 +4,12 @@
 #include <cstdint>
 #include <iterator>
 #include <memory>
+#include <optional>
 #include <string>
 #include <tuple>
 #include <vector>
 
+using std::optional;
 using std::string;
 using std::tuple;
 using std::uint64_t;
@@ -17,7 +19,7 @@ using std::vector;
 class MemTableEntry {
 public:
     MemTableEntry(const string& key,
-        string* value,
+        optional<string> value,
         bool deleted,
         uint64_t timestamp) noexcept;
 
@@ -26,11 +28,11 @@ public:
     MemTableEntry& operator=(const MemTableEntry& other) noexcept;
     MemTableEntry& operator=(MemTableEntry&& other) noexcept;
 
-    ~MemTableEntry();
+    ~MemTableEntry() = default;
 
 public:
     string key;
-    string* value {};
+    optional<string> value {};
     bool deleted {};
     uint64_t timestamp {};
 };

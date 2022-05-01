@@ -2,6 +2,7 @@
 #include "tests/catch.hpp"
 
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <tuple>
 
@@ -36,25 +37,25 @@ TEST_CASE("test WAL::load_from_dir")
         vector<WALEntry> want_entries = {
             {
                 .key = "k1",
-                .value = new string("v1"),
+                .value = "v1",
                 .timestamp = 0,
                 .deleted = false,
             },
             {
                 .key = "k2",
-                .value = new string("v2"),
+                .value = "v2",
                 .timestamp = 10,
                 .deleted = false,
             },
             {
                 .key = "k1",
-                .value = nullptr,
+                .value = std::nullopt,
                 .timestamp = 20,
                 .deleted = true,
             },
             {
                 .key = "k2",
-                .value = nullptr,
+                .value = std::nullopt,
                 .timestamp = 30,
                 .deleted = true,
             },
@@ -75,12 +76,7 @@ TEST_CASE("test WAL::load_from_dir")
             REQUIRE(want_entry.key == get_entry.key);
             REQUIRE(want_entry.deleted == get_entry.deleted);
             REQUIRE(want_entry.timestamp == get_entry.timestamp);
-
-            if (want_entry.value == nullptr) {
-                REQUIRE(get_entry.value == nullptr);
-            } else {
-                REQUIRE(*want_entry.value == *get_entry.value);
-            }
+            REQUIRE(want_entry.value == get_entry.value);
         }
     }
 
@@ -89,13 +85,13 @@ TEST_CASE("test WAL::load_from_dir")
         auto k1 = memtable.get("k1");
         REQUIRE(k1 != nullptr);
         REQUIRE(k1->key == "k1");
-        REQUIRE(k1->value == nullptr);
+        REQUIRE(k1->value == std::nullopt);
         REQUIRE(k1->timestamp == 20);
 
         auto k2 = memtable.get("k2");
         REQUIRE(k2 != nullptr);
         REQUIRE(k2->key == "k2");
-        REQUIRE(k2->value == nullptr);
+        REQUIRE(k1->value == std::nullopt);
         REQUIRE(k2->timestamp == 30);
     }
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <ostream>
 #include <tuple>
 
 #include "store/memory/memory.h"
@@ -11,13 +12,10 @@ int main()
 
     s->set("name", "lianxm");
 
-    std::string value;
-    std::unique_ptr<error> err;
-
-    std::tie(value, err) = s->get("name");
+    auto [value, err] = s->get("name");
     if (err != nullptr) {
         std::cout << "get value failed: " << err->Error() << std::endl;
     } else {
-        std::cout << value << std::endl;
+        std::cout << value.value_or("not value") << std::endl;
     }
 }

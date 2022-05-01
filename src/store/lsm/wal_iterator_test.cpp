@@ -6,6 +6,7 @@
 #include <fstream>
 #include <ios>
 #include <iostream>
+#include <optional>
 #include <ostream>
 #include <string>
 #include <utility>
@@ -35,61 +36,61 @@ TEST_CASE("test read/write wal entry")
     std::vector<WALEntry> entries = {
         {
             .key = "k1",
-            .value = new string("v1"),
+            .value = "v1",
             .timestamp = timestamp + 1,
             .deleted = false,
         },
         {
             .key = "k2",
-            .value = new string("v2"),
+            .value = "v2",
             .timestamp = timestamp + 2,
             .deleted = false,
         },
         {
             .key = "k3",
-            .value = new string("v3"),
+            .value = "v3",
             .timestamp = timestamp + 3,
             .deleted = false,
         },
         {
             .key = "k4",
-            .value = new string("v4"),
+            .value = "v4",
             .timestamp = timestamp + 4,
             .deleted = false,
         },
         {
             .key = "k1",
-            .value = nullptr,
+            .value = std::nullopt,
             .timestamp = timestamp + 5,
             .deleted = true,
         },
         {
             .key = "k2",
-            .value = nullptr,
+            .value = std::nullopt,
             .timestamp = timestamp + 6,
             .deleted = true,
         },
         {
             .key = "k3",
-            .value = nullptr,
+            .value = std::nullopt,
             .timestamp = timestamp + 7,
             .deleted = true,
         },
         {
             .key = "k1",
-            .value = new string("v11"),
+            .value = "v11",
             .timestamp = timestamp + 8,
             .deleted = false,
         },
         {
             .key = "k2",
-            .value = new string("v222"),
+            .value = "v222",
             .timestamp = timestamp + 9,
             .deleted = false,
         },
         {
             .key = "k4",
-            .value = new string("v44"),
+            .value = "v44",
             .timestamp = timestamp + 10,
             .deleted = false,
         },
@@ -123,11 +124,6 @@ TEST_CASE("test read/write wal entry")
         REQUIRE(want_entry.key == get_entry.key);
         REQUIRE(want_entry.deleted == get_entry.deleted);
         REQUIRE(want_entry.timestamp == get_entry.timestamp);
-
-        if (want_entry.value == nullptr) {
-            REQUIRE(get_entry.value == nullptr);
-        } else {
-            REQUIRE(*want_entry.value == *get_entry.value);
-        }
+        REQUIRE(want_entry.value == get_entry.value);
     }
 }

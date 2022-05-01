@@ -1,5 +1,7 @@
 #include <algorithm>
+#include <iostream>
 #include <memory>
+#include <optional>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -7,19 +9,14 @@
 #include "store/lsm/memtable.h"
 
 MemTableEntry::MemTableEntry(const string& key,
-    string* value,
+    optional<string> value,
     bool deleted,
     uint64_t timestamp) noexcept
 {
     this->key = key;
     this->deleted = deleted;
     this->timestamp = timestamp;
-
-    if (value != nullptr) {
-        this->value = new string(*value);
-    } else {
-        this->value = nullptr;
-    }
+    this->value = value;
 }
 
 MemTableEntry::MemTableEntry(const MemTableEntry& other) noexcept
@@ -27,12 +24,7 @@ MemTableEntry::MemTableEntry(const MemTableEntry& other) noexcept
     this->key = other.key;
     this->deleted = other.deleted;
     this->timestamp = other.timestamp;
-
-    if (other.value != nullptr) {
-        this->value = new string(*other.value);
-    } else {
-        this->value = nullptr;
-    }
+    this->value = other.value;
 }
 
 MemTableEntry::MemTableEntry(MemTableEntry&& other) noexcept
@@ -42,7 +34,7 @@ MemTableEntry::MemTableEntry(MemTableEntry&& other) noexcept
     this->timestamp = other.timestamp;
     this->value = other.value;
 
-    other.value = nullptr;
+    other.value = std::nullopt;
 }
 
 MemTableEntry& MemTableEntry::operator=(const MemTableEntry& other) noexcept
@@ -50,12 +42,8 @@ MemTableEntry& MemTableEntry::operator=(const MemTableEntry& other) noexcept
     this->key = other.key;
     this->deleted = other.deleted;
     this->timestamp = other.timestamp;
+    this->value = other.value;
 
-    if (other.value != nullptr) {
-        this->value = new string(*other.value);
-    } else {
-        this->value = nullptr;
-    }
     return *this;
 }
 
@@ -66,17 +54,9 @@ MemTableEntry& MemTableEntry::operator=(MemTableEntry&& other) noexcept
     this->timestamp = other.timestamp;
     this->value = other.value;
 
-    other.value = nullptr;
+    other.value = std::nullopt;
 
     return *this;
-}
-
-MemTableEntry::~MemTableEntry()
-{
-    if (this->value != nullptr) {
-        delete this->value;
-        this->value = nullptr;
-    }
 }
 
 MemTable::MemTable()
@@ -130,11 +110,11 @@ auto MemTable::get(const string& key) -> unique_ptr<MemTableEntry>
 
 void MemTable::set(const string& key, const string& value, uint64_t timestamp)
 {
-    MemTableEntry entry = { key, (string*)&value, false, timestamp };
+    MemTableEntry entry = { key, value, false, timestamp };
 
     auto [iter, exist] = this->get_index(key);
     if (exist) {
-        if (iter->value != nullptr) {
+        if (iter->value != std::nullopt) {
             usize += value.size();
             usize -= iter->value->size();
         } else {
@@ -151,11 +131,11 @@ void MemTable::set(const string& key, const string& value, uint64_t timestamp)
 
 void MemTable::remove(const string& key, uint64_t timestamp)
 {
-    MemTableEntry entry = { key, nullptr, true, timestamp };
+    MemTableEntry entry = { key, std::nullopt, true, timestamp };
 
     auto [iter, exist] = this->get_index(key);
     if (exist) {
-        if (iter->value != nullptr) {
+        if (iter->value != std::nullopt) {
             usize -= iter->value->size();
         }
         *iter = std::move(entry);

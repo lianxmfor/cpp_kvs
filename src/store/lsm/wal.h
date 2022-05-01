@@ -4,19 +4,21 @@
 #include <filesystem>
 #include <fstream>
 #include <istream>
+#include <optional>
 #include <string>
 #include <tuple>
 
 #include "store/lsm/memtable.h"
 
 using std::fstream;
+using std::optional;
 using std::string;
 using std::tuple;
 using std::uint64_t;
 
 struct WALEntry {
     string key;
-    string* value;
+    optional<string> value;
     uint64_t timestamp;
     bool deleted;
 };

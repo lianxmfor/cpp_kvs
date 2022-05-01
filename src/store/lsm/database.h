@@ -2,14 +2,12 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <optional>
 #include <string>
 
 #include "store/lsm/memtable.h"
 #include "store/lsm/wal.h"
 #include "store/store.h"
-
-using std::string;
-using std::uint64_t;
 
 namespace fs = std::filesystem;
 
@@ -33,7 +31,7 @@ public:
 public:
     std::unique_ptr<error> set(const std::string& key, const std::string& value) override;
 
-    std::tuple<std::string, std::unique_ptr<error>> get(const std::string& key) override;
+    std::tuple<std::optional<std::string>, std::unique_ptr<error>> get(const std::string& key) override;
 
     std::unique_ptr<error> remove(const std::string& key) override;
 };

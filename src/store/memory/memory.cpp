@@ -1,26 +1,35 @@
 #include <iostream>
+#include <memory>
+#include <optional>
+#include <string>
+#include <tuple>
 #include <vector>
 
 #include "error.h"
 #include "memory.h"
 
-std::unique_ptr<error> MemoryStore::set(const std::string& key, const std::string& value)
+using std::optional;
+using std::string;
+using std::tuple;
+using std::unique_ptr;
+
+unique_ptr<error> MemoryStore::set(const string& key, const string& value)
 {
     kvs[key] = value;
     return nullptr;
 }
 
-std::tuple<std::string, std::unique_ptr<error>> MemoryStore::get(const std::string& key)
+tuple<optional<string>, unique_ptr<error>> MemoryStore::get(const string& key)
 {
 
     auto value = kvs.find(key);
     if (value != kvs.end()) {
-        return std::make_tuple(value->second, nullptr);
+        return make_tuple(value->second, nullptr);
     }
-    return std::make_tuple("", nullptr);
+    return make_tuple(std::nullopt, nullptr);
 }
 
-std::unique_ptr<error> MemoryStore::remove(const std::string& key)
+unique_ptr<error> MemoryStore::remove(const string& key)
 {
     kvs.erase(key);
     return nullptr;
