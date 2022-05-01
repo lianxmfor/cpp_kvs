@@ -32,11 +32,11 @@ WALEntry WALEntryScan::next()
 {
     WALEntry entry {};
 
+    file.read(reinterpret_cast<char*>(&entry.deleted), 1);
+
     size_t key_size {};
     file.read(reinterpret_cast<char*>(&key_size), 4);
     entry.key.resize(key_size);
-
-    file.read(reinterpret_cast<char*>(&entry.deleted), 1);
 
     if (!entry.deleted) {
         size_t value_size {};

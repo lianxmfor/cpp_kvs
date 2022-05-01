@@ -85,11 +85,11 @@ auto WAL::get_filepath() const -> std::filesystem::path
 
 auto WAL::set(const string& key, const string& value, uint64_t timestamp) -> void
 {
-    size_t key_size = key.size();
-    file.write(reinterpret_cast<const char*>(&key_size), 4);
-
     bool deleted = false;
     file.write(reinterpret_cast<const char*>(&deleted), 1);
+
+    size_t key_size = key.size();
+    file.write(reinterpret_cast<const char*>(&key_size), 4);
 
     size_t value_size = value.size();
     file.write(reinterpret_cast<const char*>(&value_size), 4);
@@ -102,11 +102,11 @@ auto WAL::set(const string& key, const string& value, uint64_t timestamp) -> voi
 
 auto WAL::remove(const string& key, uint64_t timestamp) -> void
 {
-    size_t key_size = key.size();
-    file.write(reinterpret_cast<const char*>(&key_size), 4);
-
     bool deleted = true;
     file.write(reinterpret_cast<const char*>(&deleted), 1);
+
+    size_t key_size = key.size();
+    file.write(reinterpret_cast<const char*>(&key_size), 4);
 
     file.write(key.data(), key_size);
 
