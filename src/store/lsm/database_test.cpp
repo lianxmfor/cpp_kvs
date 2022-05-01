@@ -1,19 +1,18 @@
 #define CATCH_CONFIG_MAIN
 #include "tests/catch.hpp"
 
-
 #include <filesystem>
 
+#include "error.h"
 #include "store/lsm/database.h"
 #include "store/lsm/utils.h"
 #include "store/store.h"
-#include "error.h"
 
 namespace fs = std::filesystem;
 
 void remove_walfile(fs::path dir)
 {
-	auto files = file_with_ext(dir, ".wal");
+    auto files = file_with_ext(dir, ".wal");
     for (const auto& file : files) {
         std::filesystem::remove(file);
     }
@@ -21,9 +20,9 @@ void remove_walfile(fs::path dir)
 
 TEST_CASE("get tests")
 {
-	auto dir = fs::temp_directory_path();
+    auto dir = fs::temp_directory_path();
 
-	remove_walfile(dir);
+    remove_walfile(dir);
 
     std::unique_ptr<Store> s(new Database(dir));
 
@@ -44,8 +43,8 @@ TEST_CASE("get tests")
 
 TEST_CASE("set tests")
 {
-	auto dir = fs::temp_directory_path();
-	remove_walfile(dir);
+    auto dir = fs::temp_directory_path();
+    remove_walfile(dir);
 
     std::unique_ptr<Store> s(new Database(dir));
 
@@ -64,8 +63,8 @@ TEST_CASE("set tests")
 
 TEST_CASE("remove tests")
 {
-	auto dir = fs::temp_directory_path();
-	remove_walfile(dir);
+    auto dir = fs::temp_directory_path();
+    remove_walfile(dir);
 
     std::unique_ptr<Store> s(new Database(dir));
 
@@ -76,7 +75,7 @@ TEST_CASE("remove tests")
 
     std::string v;
     std::tie(v, err) = s->get("k1");
-	
+
     REQUIRE(v == "v1");
     REQUIRE(err == nullptr);
 
