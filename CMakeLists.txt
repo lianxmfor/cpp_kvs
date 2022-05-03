@@ -20,6 +20,8 @@ add_library(
 	src/store/lsm/sstable.cpp
 	src/store/lsm/utils.h
 	src/store/lsm/utils.cpp
+	src/store/lsm/bloom_filter.h
+	src/store/lsm/bloom_filter.cpp
 )
 target_include_directories(store_lib PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
@@ -48,9 +50,15 @@ add_executable(lsm_wal_test src/store/lsm/wal_test.cpp)
 target_link_libraries(lsm_wal_test store_lib)
 target_include_directories(lsm_wal_test PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
+# test src/store/lsm/database
 add_executable(lsm_database_test src/store/lsm/database_test.cpp)
 target_link_libraries(lsm_database_test store_lib)
 target_include_directories(lsm_database_test PRIVATE "${PROJECT_SOURCE_DIR}/src")
+
+# test src/store/lsm/bloom_filter
+add_executable(lsm_bloom_test src/store/lsm/bloom_filter_test.cpp)
+target_link_libraries(lsm_bloom_test store_lib)
+target_include_directories(lsm_bloom_test PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 enable_testing()
 
@@ -77,4 +85,9 @@ add_test(
 add_test(
 	NAME lsm_database_test
 	COMMAND $<TARGET_FILE:lsm_database_test> --success
+)
+
+add_test(
+	NAME lsm_bloom_test
+	COMMAND $<TARGET_FILE:lsm_bloom_test> --success
 )
