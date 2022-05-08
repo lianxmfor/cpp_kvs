@@ -51,21 +51,27 @@ public:
     // If the record is found `[iter, true]` is returned, iter is the index of record.
     // If the record is not found `[iter, false]` is returned. iter is the index to
     // insert at the record at.
-    auto get_index(const string& key) -> tuple<vector<MemTableEntry>::iterator, bool>;
+    auto get_index(const string& key)
+        -> tuple<vector<MemTableEntry>::iterator, bool>;
 
-    auto len() const -> unsigned int;
+    auto len() const
+        -> unsigned int;
 
-    auto is_empty() const -> bool;
+    auto is_empty() const
+        -> bool;
 
 public:
     // Get the MemTableEntry value of a given string key.
     // If key not exist, returned `[nullptr]`
-    auto get(const string& key) -> unique_ptr<MemTableEntry>;
+    auto get(const string& key)
+        -> unique_ptr<MemTableEntry>;
 
     // Set the value of a string key to a string.
     // If the key already exists, the previous value will be overwritten.
-    void set(const string& key, const string& value, uint64_t timestamp);
+    auto set(const string& key, const string& value, uint64_t timestamp)
+        -> void;
 
     // Removes a given key;
-    void remove(const string& key, uint64_t timestamp);
+    auto remove(const string& key, uint64_t timestamp)
+        -> void;
 };

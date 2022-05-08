@@ -71,17 +71,18 @@ MemTable::~MemTable()
     usize = 0;
 }
 
-unsigned int MemTable::len() const
+auto MemTable::len() const -> unsigned int
 {
     return usize;
 }
 
-bool MemTable::is_empty() const
+auto MemTable::is_empty() const -> bool
 {
     return usize == 0;
 }
 
-auto MemTable::get_index(const string& key) -> tuple<vector<MemTableEntry>::iterator, bool>
+auto MemTable::get_index(const string& key)
+    -> tuple<vector<MemTableEntry>::iterator, bool>
 {
     auto iter = std::lower_bound(entries.begin(), entries.end(), key,
         [](const MemTableEntry& entry, const string& key) {
@@ -91,7 +92,8 @@ auto MemTable::get_index(const string& key) -> tuple<vector<MemTableEntry>::iter
     return std::make_tuple(iter, iter != entries.end() && iter->key == key);
 }
 
-auto MemTable::get(const string& key) -> unique_ptr<MemTableEntry>
+auto MemTable::get(const string& key)
+    -> unique_ptr<MemTableEntry>
 {
     decltype(entries)::iterator iter;
     bool exist;
@@ -108,7 +110,7 @@ auto MemTable::get(const string& key) -> unique_ptr<MemTableEntry>
         iter->timestamp));
 }
 
-void MemTable::set(const string& key, const string& value, uint64_t timestamp)
+auto MemTable::set(const string& key, const string& value, uint64_t timestamp) -> void
 {
     MemTableEntry entry = { key, value, false, timestamp };
 
@@ -129,7 +131,7 @@ void MemTable::set(const string& key, const string& value, uint64_t timestamp)
     }
 }
 
-void MemTable::remove(const string& key, uint64_t timestamp)
+auto MemTable::remove(const string& key, uint64_t timestamp) -> void
 {
     MemTableEntry entry = { key, std::nullopt, true, timestamp };
 

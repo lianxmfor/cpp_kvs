@@ -24,7 +24,7 @@ auto BoolFilter::hash(std::string_view element) const -> array<std::size_t, 3>
     return hashes;
 }
 
-void BoolFilter::set(std::string_view element)
+auto BoolFilter::set(std::string_view element) -> void
 {
     auto [index1, index2, index3] = hash(element);
     bitset.set(index1);
@@ -32,7 +32,7 @@ void BoolFilter::set(std::string_view element)
     bitset.set(index3);
 }
 
-bool BoolFilter::is_exist(std::string_view element) const
+auto BoolFilter::is_exist(std::string_view element) const -> bool
 {
     auto [index1, index2, index3] = hash(element);
 

@@ -19,10 +19,10 @@ namespace chrono = std::chrono;
 
 Database::Database(fs::path dir)
 {
-	auto [wal, memtable] = WAL::load_from_dir(dir);
+    auto [wal, memtable] = WAL::load_from_dir(dir);
     this->dir = dir;
-	this->wal = std::move(wal);
-	this->memtable = std::move(memtable);
+    this->wal = std::move(wal);
+    this->memtable = std::move(memtable);
 }
 
 fs::path Database::get_dir() const
@@ -30,7 +30,8 @@ fs::path Database::get_dir() const
     return dir;
 }
 
-auto Database::get(const string& key) -> tuple<optional<string>, unique_ptr<error>>
+auto Database::get(const string& key)
+    -> tuple<optional<string>, unique_ptr<error>>
 {
     auto entry = memtable.get(key);
 
@@ -41,7 +42,8 @@ auto Database::get(const string& key) -> tuple<optional<string>, unique_ptr<erro
     return make_tuple(*entry->value, nullptr);
 }
 
-auto Database::set(const string& key, const string& value) -> unique_ptr<error>
+auto Database::set(const string& key, const string& value)
+    -> unique_ptr<error>
 {
     uint64_t timestamp = chrono::time_point_cast<chrono::microseconds>(chrono::system_clock::now())
                              .time_since_epoch()
@@ -55,7 +57,8 @@ auto Database::set(const string& key, const string& value) -> unique_ptr<error>
     return nullptr;
 }
 
-auto Database::remove(const string& key) -> unique_ptr<error>
+auto Database::remove(const string& key)
+    -> unique_ptr<error>
 {
     uint64_t timestamp = chrono::time_point_cast<chrono::microseconds>(chrono::system_clock::now())
                              .time_since_epoch()

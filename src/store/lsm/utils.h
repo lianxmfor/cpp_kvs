@@ -9,9 +9,11 @@
 using std::string;
 using std::vector;
 
-auto file_with_ext(const std::filesystem::path& dir, const string& ext) -> vector<string>;
+auto file_with_ext(const std::filesystem::path& dir, const string& ext)
+    -> vector<string>;
 
-auto get_random_string(const int len, const std::string& extension) -> string;
+auto get_random_string(const int len, const std::string& extension)
+    -> string;
 
 class TempFile {
 private:

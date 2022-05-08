@@ -4,7 +4,8 @@
 
 #include "store/lsm/utils.h"
 
-auto file_with_ext(const std::filesystem::path& dir, const string& ext) -> vector<string>
+auto file_with_ext(const std::filesystem::path& dir, const string& ext)
+    -> vector<string>
 {
     vector<string> files {};
     for (auto& p : std::filesystem::directory_iterator(dir)) {
@@ -16,7 +17,8 @@ auto file_with_ext(const std::filesystem::path& dir, const string& ext) -> vecto
     return files;
 }
 
-auto get_random_string(const int len, const std::string& extension) -> string
+auto get_random_string(const int len, const std::string& extension)
+    -> string
 {
     constexpr static const char alphanum[] = "0123456789"
                                              "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

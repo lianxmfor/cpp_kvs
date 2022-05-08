@@ -29,9 +29,12 @@ public:
     fs::path get_dir() const;
 
 public:
-    std::unique_ptr<error> set(const std::string& key, const std::string& value) override;
+    auto set(const std::string& key, const std::string& value)
+        -> std::unique_ptr<error> override;
 
-    std::tuple<std::optional<std::string>, std::unique_ptr<error>> get(const std::string& key) override;
+    auto get(const std::string& key)
+        -> std::tuple<std::optional<std::string>, std::unique_ptr<error>> override;
 
-    std::unique_ptr<error> remove(const std::string& key) override;
+    auto remove(const std::string& key)
+        -> std::unique_ptr<error> override;
 };

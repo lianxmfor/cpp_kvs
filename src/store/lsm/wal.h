@@ -42,14 +42,19 @@ public:
     ~WAL();
 
 public:
-    static auto load_from_dir(const std::filesystem::path& dir) -> tuple<WAL, MemTable>;
+    static auto load_from_dir(const std::filesystem::path& dir)
+        -> tuple<WAL, MemTable>;
 
-    auto get_filepath() const -> std::filesystem::path;
+    auto get_filepath() const
+        -> std::filesystem::path;
 
 public:
-    auto set(const string& key, const string& value, uint64_t timestamp) -> void;
+    auto set(const string& key, const string& value, uint64_t timestamp)
+        -> void;
 
-    auto remove(const string& key, uint64_t timestamp) -> void;
+    auto remove(const string& key, uint64_t timestamp)
+        -> void;
 
-    auto flush() -> void;
+    auto flush()
+        -> void;
 };

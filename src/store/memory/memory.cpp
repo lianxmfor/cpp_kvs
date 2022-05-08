@@ -13,13 +13,13 @@ using std::string;
 using std::tuple;
 using std::unique_ptr;
 
-unique_ptr<error> MemoryStore::set(const string& key, const string& value)
+auto MemoryStore::set(const string& key, const string& value) -> unique_ptr<error>
 {
     kvs[key] = value;
     return nullptr;
 }
 
-tuple<optional<string>, unique_ptr<error>> MemoryStore::get(const string& key)
+auto MemoryStore::get(const string& key) -> tuple<optional<string>, unique_ptr<error>>
 {
 
     auto value = kvs.find(key);
@@ -29,7 +29,7 @@ tuple<optional<string>, unique_ptr<error>> MemoryStore::get(const string& key)
     return make_tuple(std::nullopt, nullptr);
 }
 
-unique_ptr<error> MemoryStore::remove(const string& key)
+auto MemoryStore::remove(const string& key) -> unique_ptr<error>
 {
     kvs.erase(key);
     return nullptr;

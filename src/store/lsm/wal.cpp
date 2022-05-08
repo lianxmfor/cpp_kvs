@@ -46,7 +46,8 @@ WAL::~WAL()
     this->file.close();
 }
 
-auto WAL::load_from_dir(const std::filesystem::path& dir) -> tuple<WAL, MemTable>
+auto WAL::load_from_dir(const std::filesystem::path& dir)
+    -> tuple<WAL, MemTable>
 {
     auto files = file_with_ext(dir, ".wal");
     std::sort(files.begin(), files.end());
@@ -78,7 +79,8 @@ auto WAL::load_from_dir(const std::filesystem::path& dir) -> tuple<WAL, MemTable
     return std::make_tuple(std::move(new_wal), std::move(new_memtable));
 }
 
-auto WAL::get_filepath() const -> std::filesystem::path
+auto WAL::get_filepath() const
+    -> std::filesystem::path
 {
     return filepath;
 }
