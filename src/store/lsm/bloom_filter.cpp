@@ -1,12 +1,8 @@
 #include <algorithm>
 #include <array>
-#include <cstddef>
-#include <functional>
 #include <iterator>
 #include <random>
 #include <string_view>
-#include <sys/event.h>
-#include <tuple>
 
 #include "store/lsm/bloom_filter.h"
 

@@ -3,12 +3,10 @@
 #include <filesystem>
 #include <memory>
 #include <optional>
-#include <string>
 #include <tuple>
 
 #include "error.h"
 #include "store/lsm/database.h"
-#include "store/lsm/memtable.h"
 
 using std::nullopt;
 using std::string;
@@ -21,11 +19,10 @@ namespace chrono = std::chrono;
 
 Database::Database(fs::path dir)
 {
-    auto [wal, memtable] = WAL::load_from_dir(dir);
-
+	auto [wal, memtable] = WAL::load_from_dir(dir);
     this->dir = dir;
-    this->wal = std::move(wal);
-    this->memtable = std::move(memtable);
+	this->wal = std::move(wal);
+	this->memtable = std::move(memtable);
 }
 
 fs::path Database::get_dir() const
